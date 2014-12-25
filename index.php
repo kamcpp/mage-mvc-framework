@@ -9,6 +9,7 @@ $request->setPath($_GET['path']);
 $request->addToParams($_GET);
 $request->addToParams($_POST);
 $request->addToCookies($_COOKIE);
+session_start();
 unset($_GET);
 unset($_POST);
 unset($_COOKIE);

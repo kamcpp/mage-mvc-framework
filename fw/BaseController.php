@@ -13,18 +13,11 @@ class BaseController {
         return get();
     }
 
-    private function startSession() {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-    }
     protected function getSession($key) {
-        $this->startSession();
         return $_SESSION[$key];
     }
 
     protected function setSession($key, $value) {
-        $this->startSession();
         $_SESSION[$key] = $value;
     }
 
@@ -36,6 +29,9 @@ class BaseController {
         unset($_SESSION[$key]);
     }
 
+    protected function sessionExists($key) {
+        return isset($_SESSION[$key]);
+    }
     protected function addCookie($name, $value) {
         setcookie($name, $value);
     }
