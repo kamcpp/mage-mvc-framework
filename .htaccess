@@ -1,0 +1,5 @@
+RewriteEngine On
+
+RewriteRule ^c$  index.php?path=Root
+RewriteRule ^c/$  index.php?path=Root
+RewriteRule ^c/(.*)$  index.php?path=$1
