@@ -15,10 +15,31 @@ class Engine {
     public function process(Request $request) {
         $controller = $this->dispatcher->createController($request);
         if ($request->isGet()) {
-            $modelAndView = $controller->get($request);
+            $response = $controller->get($request);
         } else if ($request->isPost()) {
-            $modelAndView = $controller->post($request);
+            $response = $controller->post($request);
         }
-        return $this->viewResolver->produceView($modelAndView);
+        if (!isset($response)) {
+            // TODO Replace this section with Exception Handling
+            die("ERROR: HTTP method is not supported.");
+        }
+        if (!($response instanceof Response)) {
+            // TODO Exception Handling
+            die("ERROR: Controllers MUST return a Response object.");
+        }
+        if ($response instanceof ModelAndView) {
+            header('HTTP/1.1 '.$response->getStatusCode());
+            return $this->viewResolver->produceView($response);
+        } else if ($response instanceof RedirectResponse) {
+            header('Location: ' . $response->getUrl(), true, $response->getStatusCode());
+            die();
+        } else if ($response instanceof RawResponse) {
+            header('HTTP/1.1 '.$response->getStatusCode());
+            header('Content-Type: '.$response->getContentType());
+            return $response->getData();
+        } else {
+            // TODO Exception Handling
+            die("ERROR: Response type is not supported.");
+        }
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
- class ModelAndView {
+require_once("Response.php");
+
+ class ModelAndView extends Response {
 
      private $viewName;
      private $model;
@@ -13,6 +15,7 @@
              $this->viewName = func_get_arg(0);
              $this->model = func_get_arg(1);
          }
+         $this->statusCode = 200;
      }
 
      public function getModel() {
