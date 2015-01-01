@@ -9,8 +9,8 @@ class BaseController {
         echo "BASE CONTROLLER IS CALLED.";
     }
 
-    public function post() {
-        return get();
+    public function post(Request $request) {
+        return $this->get($request);
     }
 
     protected function getSession($key) {
