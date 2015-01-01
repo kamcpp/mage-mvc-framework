@@ -6,7 +6,11 @@ class Dispatcher {
         require_once("controllers/".$request->getPath()."Controller.php");
         $tokens = explode("/", $request->getPath());
         $className = $tokens[count($tokens) - 1]."Controller";
-        return new $className();
+        $obj = new $className();
+        if ($obj instanceof BaseController) {
+        	return $obj;
+        }
+        die("ERROR: Controller must inherit from BaseController.");
     }
 }
 

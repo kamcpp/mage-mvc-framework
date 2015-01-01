@@ -2,12 +2,9 @@
 
 require_once("ModelAndView.php");
 
-class BaseController {
+abstract class BaseController {
 
-    public function get(Request $request) {
-        // TODO
-        echo "BASE CONTROLLER IS CALLED.";
-    }
+    public abstract function get(Request $request);
 
     public function post(Request $request) {
         return $this->get($request);
