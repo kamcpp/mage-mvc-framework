@@ -44,6 +44,10 @@ class Request {
         return $this->params;
     }
 
+    public function getParam($paramName) {
+        return $this->params[$paramName];
+    }
+    
     public function addToParams($array) {
         foreach ($array as $key => $value) {
             $this->params[$key] = $value;

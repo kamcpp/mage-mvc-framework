@@ -37,6 +37,8 @@ class Engine {
             header('HTTP/1.1 '.$response->getStatusCode());
             header('Content-Type: '.$response->getContentType());
             return $response->getData();
+        } else if ($response instanceof FakeResponse) {
+            return "";        
         } else {
             // TODO Exception Handling
             die("ERROR: Response type is not supported.");
