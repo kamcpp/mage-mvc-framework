@@ -13,34 +13,34 @@ abstract class AbstractDAO {
 
 	public function insert(BaseEntity $entity) {
 		$this->openConnection();
-		$this->databaseConnection->execute(createInsertQuery($entity));
+		$this->databaseConnection->execute($this->createInsertQuery($entity));
 		$this->closeConnetion();
 	}
 	public function update(BaseEntity $entity) {
 		$this->openConnection();
-		$this->databaseConnection->execute(createUpdateQuery($entity));
+		$this->databaseConnection->execute($this->createUpdateQuery($entity));
 		$this->closeConnetion();
 	}
 	public function delete($id) {
 		$this->openConnection();
-		$this->databaseConnection->execute(createDeleteQuery($id));
+		$this->databaseConnection->execute($this->createDeleteQuery($id));
 		$this->closeConnetion();
 	}
 	public function getAll() {
 		$this->openConnection();
-		$result = $this->databaseConnection->executeWithResult(createSelectQueryForAll());
+		$result = $this->databaseConnection->executeWithResult($this->createSelectQueryForAll());
 		$this->closeConnetion();
 		return $result;
 	}
 	public function getById($id) {
 		$this->openConnection();
-		$result = $this->databaseConnection->executeWithResult(createSelectQueryForId($id));
+		$result = $this->databaseConnection->executeWithResult($this->createSelectQueryForId($id));
 		$this->closeConnetion();
 		return $result;
 	}
 	public function get(Predicate $predicate) {
 		$this->openConnection();
-		$result = $this->databaseConnection->executeWithResult(createSelectQueryForPredicate($predicate));
+		$result = $this->databaseConnection->executeWithResult($this->createSelectQueryForPredicate($predicate));
 		$this->closeConnetion();
 		return $result;
 	}
@@ -53,7 +53,7 @@ abstract class AbstractDAO {
 	protected abstract function createSelectQueryForPredicate(Predicate $predicate);
 
 	private function openConnection() {
-		$this->databaseConnection->open("10.10.103.6", "3306", "phpdb", "admin", "12345");
+		$this->databaseConnection->open("localhost", "3306", "phpdb", "root", "");
 	}
 
 	private function closeConnetion() {

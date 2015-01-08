@@ -18,11 +18,15 @@ class MySQLDatabaseConnection extends DatabaseConnection {
 	}
 
     public function execute($sqlQuery) {
-		mysqli_query($this->connection, $sqlQuery);		
+		$result = mysqli_query($this->connection, $sqlQuery);		
+		if (mysqli_connect_errno()) {
+			die("ERROR: ". mysqli_error($this->connection));
+		}
+		return $result;
 	}
 
 	public function executeWithResult($sqlQuery) {
-		$result = execute($sqlQuery);
+		$result = $this->execute($sqlQuery);
 		$counter = 0;
 		$toReturn = array();
 		while ($row = mysqli_fetch_array($result)) {

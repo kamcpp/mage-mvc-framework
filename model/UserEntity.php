@@ -5,7 +5,7 @@ require_once("fw/BaseEntity.php");
 class UserEntity extends BaseEntity {
 	private $username;
 	private $password;
-
+	
 	public function getUsername() {
 		return $this->username;
 	}

@@ -10,7 +10,7 @@ class SQLPredicate extends Predicate {
 	}
 
 	public function getWhereClause() {
-		return $whereClause;
+		return $this->whereClause;
 	}
 
 	public function setWhereClause($whereClause) {
