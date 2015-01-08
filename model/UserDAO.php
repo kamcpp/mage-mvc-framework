@@ -14,28 +14,9 @@ class UserDAO extends AbstractDAO {
 		// TODO
 	}
 
-	protected function createDeleteQuery($id) {
-		return "DELETE FROM user WHERE id = $id";
-	}
-
-	protected function createSelectQueryForAll() {
-		return "SELECT * FROM user";
-	}
-
-	protected function createSelectQueryForId($id) {
-		return "SELECT * FROM user WHERE id = $id";
-	}
-
-	protected function createSelectQueryForPredicate(Predicate $predicate) {
-		if ($predicate instanceof SQLPredicate) {
-			return "SELECT * FROM user WHERE ".$predicate->getWhereClause();
-		}
-		throw new Exception("Predicate type is not supported."); // TODO
-	}
-
 	protected function createArrayOfObjects($result) {		
 		$arrayOfObjects = array();
-		foreach ($$result as $index => $row) {
+		foreach ($result as $index => $row) {
 			$userEntity = new UserEntity();
 			$userEntity->setId($row['id']);
 			$userEntity->setUsername($row['username']);
@@ -44,4 +25,8 @@ class UserDAO extends AbstractDAO {
 		}
 		return $arrayOfObjects;
 	}
+
+    protected function getTableName() {
+        return "user";
+    }
 }

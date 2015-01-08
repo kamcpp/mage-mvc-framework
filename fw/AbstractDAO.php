@@ -47,11 +47,25 @@ abstract class AbstractDAO {
 
 	protected abstract function createInsertQuery(BaseEntity $entity);
 	protected abstract function createUpdateQuery(BaseEntity $entity);
-	protected abstract function createDeleteQuery($id);
-	protected abstract function createSelectQueryForAll();
-	protected abstract function createSelectQueryForId($id);
-	protected abstract function createSelectQueryForPredicate(Predicate $predicate);
+
+    protected function createDeleteQuery($id) {
+        return "DELETE FROM ".$this->getTableName()." WHERE id = $id";
+    }
+
+	protected function createSelectQueryForAll() {
+        return "SELECT * FROM ".$this->getTableName();
+    }
+	protected function createSelectQueryForId($id) {
+        return "SELECT * FROM ".$this->getTableName()." WHERE id = $id";
+    }
+	protected function createSelectQueryForPredicate(Predicate $predicate) {
+        if ($predicate instanceof SQLPredicate) {
+            return "SELECT * FROM ".$this->getTableName()." WHERE ".$predicate->getWhereClause();
+        }
+        throw new Exception("Predicate type is not supported."); // TODO
+    }
 	protected abstract function createArrayOfObjects($result);
+    protected abstract function getTableName();
 
 	private function openConnection() {
 		$this->databaseConnection->open("10.10.103.103", "3306", "phpdb", "root", "");
