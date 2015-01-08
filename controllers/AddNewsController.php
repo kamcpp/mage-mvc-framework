@@ -1,5 +1,6 @@
 <?php
 
+require_once("model/NewsDAO.php");
 require_once("fw/BaseController.php");
 
  class AddNewsController extends  BaseController {
@@ -9,11 +10,14 @@ require_once("fw/BaseController.php");
      }
 
      public function post(Request $request) {
-         /* if (...) {
-            return new ModelAndView("add-news", array("errorMessages" => array(...)));
-         } else {
-             // insert into
-             return new RedirectResponse("News");
-         } */
+
+         $newsEntity = new NewsEntity();
+         $newsEntity->setText($request->getParam('text'));
+         $newsEntity->setTitle($request->getParam('title'));
+
+         $newsDAO = new NewsDAO();
+         $newsDAO->insert($newsEntity);
+
+         return new RedirectResponse("News");
      }
  }

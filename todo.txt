@@ -1,0 +1,8 @@
+[TODO LIST]
+- Implement Controller/Action
+- Validation framework
+- ORM and a single EntityManager
+- Implement other HTTP methods like PUT, DELETE, CONNECT, etc.
+- We can be able to use lower case URLs.
+  For example; /c/news this should make an object from NewsController class.
+  Another example; /c/news/ADD this should call addGet or addPost from NewsController class.

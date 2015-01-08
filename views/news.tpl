@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title>News</title>
+    <meta charset="utf-8"/>
 </head>
 <body>
     <a href="AddNews">ADD NEWS</a>
@@ -18,7 +19,7 @@
 				<td>{$item->getId()}</td>
 				<td>{$item->getTitle()}</td>
 				<td>{$item->getText()}</td>
-				<td>{$item->getIssueDate()}</td>
+				<td>{$item->getJalaliDate()}</td>
 				<td><a href="UpdateNews?id={$item->getId()}">UPDATE</a></td>
 				<td><a href="DeleteNews?id={$item->getId()}">DELETE</a></td>
 			</tr>

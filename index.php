@@ -4,6 +4,8 @@ require_once("fw/Request.php");
 require_once("fw/Engine.php");
 require_once("fw/BaseController.php");
 
+date_default_timezone_set("UTC");
+
 $request = new Request();
 $request->setPath($_GET['path']);
 $request->addToParams($_GET);

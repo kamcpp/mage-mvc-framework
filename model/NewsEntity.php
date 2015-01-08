@@ -1,6 +1,7 @@
 <?php
 
 require_once("fw/BaseEntity.php");
+require_once("lib/jdf.php");
 
 class NewsEntity extends BaseEntity {
     private $title;
@@ -13,6 +14,10 @@ class NewsEntity extends BaseEntity {
 
     public function setIssueDate($issueDate) {
         $this->issueDate = $issueDate;
+    }
+
+    public function getJalaliDate() {
+        return jdate('Y F j H:i:S', $this->issueDate);
     }
 
     public function getText() {

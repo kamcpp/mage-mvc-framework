@@ -7,7 +7,7 @@ class NewsDAO extends AbstractDAO {
 
     protected function createInsertQuery(BaseEntity $entity) {
         if ($entity instanceof NewsEntity) {
-            return "INSERT INTO news (title, text, issueDate) VALUES ('$entity->getTitle()', '$entity->getText()', ".time().")";
+            return "INSERT INTO news (title, text, issueDate) VALUES ('".$entity->getTitle()."', '".$entity->getText()."', ".time().")";
         }
         throw new Exception("Entity is not supported.");
     }

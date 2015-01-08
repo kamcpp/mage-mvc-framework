@@ -12,7 +12,7 @@ abstract class AbstractDAO {
 	}
 
 	public function insert(BaseEntity $entity) {
-		$this->openConnection();
+        $this->openConnection();
 		$this->databaseConnection->execute($this->createInsertQuery($entity));
 		$this->closeConnetion();
 	}
