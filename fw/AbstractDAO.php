@@ -30,19 +30,19 @@ abstract class AbstractDAO {
 		$this->openConnection();
 		$result = $this->databaseConnection->executeWithResult($this->createSelectQueryForAll());
 		$this->closeConnetion();
-		return $result;
+		return $this->createArrayOfObjects($result);
 	}
 	public function getById($id) {
 		$this->openConnection();
 		$result = $this->databaseConnection->executeWithResult($this->createSelectQueryForId($id));
 		$this->closeConnetion();
-		return $result;
+		return $this->createArrayOfObjects($result);
 	}
 	public function get(Predicate $predicate) {
 		$this->openConnection();
 		$result = $this->databaseConnection->executeWithResult($this->createSelectQueryForPredicate($predicate));
 		$this->closeConnetion();
-		return $result;
+		return $this->createArrayOfObjects($result);
 	}
 
 	protected abstract function createInsertQuery(BaseEntity $entity);
@@ -51,9 +51,10 @@ abstract class AbstractDAO {
 	protected abstract function createSelectQueryForAll();
 	protected abstract function createSelectQueryForId($id);
 	protected abstract function createSelectQueryForPredicate(Predicate $predicate);
+	protected abstract function createArrayOfObjects($result);
 
 	private function openConnection() {
-		$this->databaseConnection->open("localhost", "3306", "phpdb", "root", "");
+		$this->databaseConnection->open("10.10.103.103", "3306", "phpdb", "root", "");
 	}
 
 	private function closeConnetion() {

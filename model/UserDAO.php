@@ -32,4 +32,16 @@ class UserDAO extends AbstractDAO {
 		}
 		throw new Exception("Predicate type is not supported."); // TODO
 	}
+
+	protected function createArrayOfObjects($result) {		
+		$arrayOfObjects = array();
+		foreach ($$result as $index => $row) {
+			$userEntity = new UserEntity();
+			$userEntity->setId($row['id']);
+			$userEntity->setUsername($row['username']);
+			$userEntity->setPassword($row['password']);
+			$arrayOfObjects[$index] = $userEntity;
+		}
+		return $arrayOfObjects;
+	}
 }
