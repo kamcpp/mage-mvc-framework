@@ -15,7 +15,7 @@ use Mage\ORM\EntityManager;
          $newsEntity->setTitle($request->getParam('title'));
          $newsEntity->setIssueDate(time());
 
-         $newsDAO = new EntityManager('NewsEntity');
+         $newsDAO = Context::getEntityManager('NewsEntity');
          $newsDAO->insert($newsEntity);
 
          return new RedirectResponse("News");

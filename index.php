@@ -9,6 +9,7 @@ spl_autoload_register(function ($class) {
         'fw/orm',
         'model',
         'lib',
+        'fw/di',
         'controllers',
         'biz',
         'biz/membership');
@@ -23,6 +24,8 @@ spl_autoload_register(function ($class) {
 });
 
 date_default_timezone_set("UTC");
+
+Context::wire();
 
 $request = new \Request();
 $request->setPath($_GET['path']);

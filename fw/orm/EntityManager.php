@@ -5,9 +5,9 @@ namespace Mage\ORM {
         private $entityType;
         private $databaseConnection;
 
-        public function __construct($entityType) {
+        public function __construct($entityType, $databaseConnection) {
             $this->entityType = $entityType;
-            $this->databaseConnection = new MySQLDatabaseConnection();
+            $this->databaseConnection = $databaseConnection;
         }
 
         public function insert(BaseEntity $entity) {

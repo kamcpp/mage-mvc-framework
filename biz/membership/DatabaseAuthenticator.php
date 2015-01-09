@@ -1,15 +1,11 @@
 <?php
 
 class DatabaseAuthenticator extends Authenticator {
-	private $dao;
-
-	public function __construct() {
-		$this->dao = new EntityManager('UserEntity');
-	}
 
 	public function authenticate($username, $password) {
+        $dao = Context::getEntityManager('UserEntity');
 		$predicate = new SQLPredicate("username = '$username' AND password = '$password'");
-		$users = $this->dao->get($predicate);
+		$users = $dao->get($predicate);
 		if (count($users) == 0) {
 			throw new AuthenticationFailedException();
 		}
