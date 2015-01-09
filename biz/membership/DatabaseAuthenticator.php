@@ -1,14 +1,10 @@
 <?php
 
-require_once("Authenticator.php");
-require_once("model/UserDAO.php");
-require_once("AuthenticationFailedException.php");
-
 class DatabaseAuthenticator extends Authenticator {
 	private $dao;
 
 	public function __construct() {
-		$this->dao = new UserDAO();
+		$this->dao = new EntityManager('UserEntity');
 	}
 
 	public function authenticate($username, $password) {

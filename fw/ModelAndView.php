@@ -1,7 +1,5 @@
 <?php
 
-require_once("Response.php");
-
  class ModelAndView extends Response {
 
      private $viewName;

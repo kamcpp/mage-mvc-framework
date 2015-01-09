@@ -1,7 +1,5 @@
 <?php
 
-require_once("Response.php");
-
 class RawResponse extends Response {
 	private $contentType;
 	private $data;

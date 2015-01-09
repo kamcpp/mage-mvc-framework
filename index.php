@@ -1,12 +1,30 @@
 <?php
 
-require_once("fw/Request.php");
-require_once("fw/Engine.php");
-require_once("fw/BaseController.php");
+spl_autoload_register(function ($class) {
+    if ($class == "Smarty") {
+        require_once("lib/smarty/Smarty.class.php");
+        return true;
+    }
+    $dirs = array('fw',
+        'fw/orm',
+        'model',
+        'lib',
+        'controllers',
+        'biz',
+        'biz/membership');
+    foreach ($dirs as $dir) {
+        $filename = "$dir/" . $class . ".php";
+        if (file_exists($filename)) {
+            require_once($filename);
+            return true;
+        }
+    }
+    return false;
+});
 
 date_default_timezone_set("UTC");
 
-$request = new Request();
+$request = new \Request();
 $request->setPath($_GET['path']);
 $request->addToParams($_GET);
 $request->addToParams($_POST);
@@ -23,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     die('Method is not supported.');
 }
 
-$engine = new Engine();
+$engine = new \Engine();
 $response = $engine->process($request);
 
 echo $response;

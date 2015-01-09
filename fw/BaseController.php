@@ -1,10 +1,5 @@
 <?php
 
-require_once("ModelAndView.php");
-require_once("RawResponse.php");
-require_once("RedirectResponse.php");
-require_once("FakeResponse.php");
-
 abstract class BaseController {
 
     public abstract function get(Request $request);

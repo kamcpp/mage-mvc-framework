@@ -1,7 +1,6 @@
 <?php
 
-require_once("fw/BaseEntity.php");
-require_once("lib/jdf.php");
+use Mage\ORM\BaseEntity;
 
 class NewsEntity extends BaseEntity {
     private $title;
@@ -17,6 +16,7 @@ class NewsEntity extends BaseEntity {
     }
 
     public function getJalaliDate() {
+        require_once("lib/jdf.php");
         return jdate('Y F j H:i:S', $this->issueDate);
     }
 
@@ -34,5 +34,17 @@ class NewsEntity extends BaseEntity {
 
     public function setTitle($title) {
         $this->title = $title;
+    }
+
+    public static function getTable() {
+        return "news";
+    }
+
+    public static function getMappings() {
+        $properties = array("id", "title", "text", "issueDate");
+        $primaryKeys = array(array("name" => "id", "ai" => "true", "column" => "id"));
+        $columns = array("title" => "title", "text" => "text", "issueDate" => "issueDate");
+        $types = array("id" => "number", "title" => "text", "text" => "text", "issueDate" => "number");
+        return array("properties" => $properties, "pks" => $primaryKeys, "columns" => $columns, "types" => $types);
     }
 }

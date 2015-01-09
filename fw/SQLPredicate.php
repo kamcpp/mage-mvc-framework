@@ -1,7 +1,5 @@
 <?php
 
-require_once("Predicate.php");
-
 class SQLPredicate extends Predicate {
 	private $whereClause;
 

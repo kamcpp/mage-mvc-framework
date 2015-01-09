@@ -1,9 +1,5 @@
 <?php
 
-require_once("fw/BaseController.php");
-require_once("biz/membership/SimpleAuthenticator.php");
-require_once("biz/membership/DatabaseAuthenticator.php");
-
 class LoginController extends BaseController {
 
 	private $authenticator;

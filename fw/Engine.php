@@ -1,8 +1,5 @@
 <?php
 
-require_once("Dispatcher.php");
-require_once("ViewResolver.php");
-
 class Engine {
     private $dispatcher;
     private $viewResolver;
@@ -28,17 +25,17 @@ class Engine {
             die("ERROR: Controllers MUST return a Response object.");
         }
         if ($response instanceof ModelAndView) {
-            header('HTTP/1.1 '.$response->getStatusCode());
+            header('HTTP/1.1 ' . $response->getStatusCode());
             return $this->viewResolver->produceView($response);
         } else if ($response instanceof RedirectResponse) {
             header('Location: ' . $response->getUrl(), true, $response->getStatusCode());
             die();
         } else if ($response instanceof RawResponse) {
-            header('HTTP/1.1 '.$response->getStatusCode());
-            header('Content-Type: '.$response->getContentType());
+            header('HTTP/1.1 ' . $response->getStatusCode());
+            header('Content-Type: ' . $response->getContentType());
             return $response->getData();
         } else if ($response instanceof FakeResponse) {
-            return "";        
+            return "";
         } else {
             // TODO Exception Handling
             die("ERROR: Response type is not supported.");
