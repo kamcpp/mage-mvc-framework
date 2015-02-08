@@ -1,7 +1,5 @@
 <?php
 
-use Mage\ORM\EntityManager;
-
  class AddNewsController extends BaseController {
 
      public function get(Request $request) {
@@ -15,7 +13,7 @@ use Mage\ORM\EntityManager;
          $newsEntity->setTitle($request->getParam('title'));
          $newsEntity->setIssueDate(time());
 
-         $newsDAO = Context::getEntityManager('NewsEntity');
+         $newsDAO = Context::createEntityManager('NewsEntity');
          $newsDAO->insert($newsEntity);
 
          return new RedirectResponse("News");

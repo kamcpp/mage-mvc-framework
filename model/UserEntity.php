@@ -1,6 +1,6 @@
 <?php
 
-class UserEntity extends Mage\ORM\BaseEntity {
+class UserEntity extends BaseEntity {
 	private $username;
 	private $password;
 	

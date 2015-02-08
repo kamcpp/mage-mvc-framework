@@ -17,11 +17,11 @@ class Engine {
             $response = $controller->post($request);
         }
         if (!isset($response)) {
-            // TODO Replace this section with Exception Handling
+            // TO DO Replace this section with Exception Handling
             die("ERROR: HTTP method is not supported.");
         }
         if (!($response instanceof Response)) {
-            // TODO Exception Handling
+            // TO DO Exception Handling
             die("ERROR: Controllers MUST return a Response object.");
         }
         if ($response instanceof ModelAndView) {
@@ -37,7 +37,7 @@ class Engine {
         } else if ($response instanceof FakeResponse) {
             return "";
         } else {
-            // TODO Exception Handling
+            // TO DO Exception Handling
             die("ERROR: Response type is not supported.");
         }
     }

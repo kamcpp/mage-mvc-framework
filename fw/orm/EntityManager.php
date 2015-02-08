@@ -1,6 +1,5 @@
 <?php
 
-namespace Mage\ORM {
     class EntityManager {
         private $entityType;
         private $databaseConnection;
@@ -49,23 +48,45 @@ namespace Mage\ORM {
             return $this->createArrayOfObjects($result);
         }
 
-        protected function createDeleteQuery($id) {
-            return "DELETE FROM " . $this->getTableName() . " WHERE id = $id";
-        }
-
         protected function createSelectQueryForAll() {
             return "SELECT * FROM " . $this->getTableName();
-        }
-
-        protected function createSelectQueryForId($id) {
-            return "SELECT * FROM " . $this->getTableName() . " WHERE id = $id";
         }
 
         protected function createSelectQueryForPredicate(Predicate $predicate) {
             if ($predicate instanceof SQLPredicate) {
                 return "SELECT * FROM " . $this->getTableName() . " WHERE " . $predicate->getWhereClause();
             }
-            throw new Exception("Predicate type is not supported."); // TODO
+            throw new Exception("Predicate type is not supported."); // TO DO
+        }
+
+        protected function createSelectQueryForId($id) {
+            $sqlQuery =  "SELECT * FROM " . $this->getTableName() . " WHERE ";
+            $className = $this->entityType;
+            $mapping = $className::getMappings();
+            for ($i = 0; $i < count($mapping["properties"]); $i++) {
+                for ($j = 0; $j < count($mapping["pks"]); $j++) {
+                    if ($mapping["properties"][$i] == $mapping["pks"][$j]["name"]) {
+                        $value = $mapping["properties"][$i];
+                        $sqlQuery .= $value . "=" . $id;
+                    }
+                }
+            }
+            return $sqlQuery;
+        }
+
+        protected function createDeleteQuery($id) {
+            $sqlQuery = "DELETE FROM " . $this->getTableName() . " WHERE ";
+            $className = $this->entityType;
+            $mapping = $className::getMappings();
+            for ($i = 0; $i < count($mapping["properties"]); $i++) {
+                for ($j = 0; $j < count($mapping["pks"]); $j++) {
+                    if ($mapping["properties"][$i] == $mapping["pks"][$j]["name"]) {
+                        $value = $mapping["properties"][$i];
+                        $sqlQuery .= $value . "=" . $id;
+                    }
+                }
+            }
+            return $sqlQuery;
         }
 
         protected function createInsertQuery(BaseEntity $entity) {
@@ -123,8 +144,55 @@ namespace Mage\ORM {
         }
 
         protected function createUpdateQuery(BaseEntity $entity) {
-            $sqlQuery = "UPDATE";
-            // TODO: FINAL PROJECT
+            $sqlQuery = "UPDATE ".$this->getTableName()." SET ";
+            $className = $this->entityType;
+            $mapping = $className::getMappings();
+            // PKs
+            for ($i = 0; $i < count($mapping["pks"]); $i++) {
+                if (!$mapping["pks"][$i]["ai"]) {
+                    $sqlQuery .= $mapping["pks"][$i]["column"];
+                    $sqlQuery .= ", ";
+                }
+            }
+            // Ordinary columns
+
+            for ($i = 0; $i < count($mapping["properties"]); $i++) {
+                $found = false;
+                for ($j = 0; $j < count($mapping["pks"]); $j++) {
+                    if ($mapping["properties"][$i] == $mapping["pks"][$j]["name"]) {
+                        $found = true;
+                    }
+                }
+                if (!$found) {
+                    $sqlQuery .= $mapping["columns"][$mapping["properties"][$i]];
+                    if ($i < count($mapping["properties"])) {
+                        $sqlQuery .= "=";
+
+                        $getterName = "get" . ucfirst($mapping["properties"][$i]);
+                        $value = $entity->$getterName();
+                        $type = $mapping["types"][$mapping["properties"][$i]];
+                        if ($type == "number") {
+                            $sqlQuery .= $value;
+                        } else if ($type == "text") {
+                            $sqlQuery .= "'" . $value . "'";
+                        } else {
+                            $sqlQuery .= "'" . $value . "'";
+                        }
+                        if ($i < count($mapping["properties"]) - 1) {
+                            $sqlQuery .= ", ";
+                        }
+                    }
+                }
+            }
+            $sqlQuery .= " WHERE ";
+            for ($i = 0; $i < count($mapping["properties"]); $i++) {
+                for ($j = 0; $j < count($mapping["pks"]); $j++) {
+                    if ($mapping["properties"][$i] == $mapping["pks"][$j]["name"]) {
+                        $value = $mapping["properties"][$i];
+                        $sqlQuery .= $value."=".$entity->getId();
+                    }
+                }
+            }
             return $sqlQuery;
         }
 
@@ -163,11 +231,10 @@ namespace Mage\ORM {
         }
 
         private function openConnection() {
-            $this->databaseConnection->open("10.10.103.103", "3306", "phpdb", "root", "");
+            $this->databaseConnection->open("localhost", "3307", "phpdb", "root", "");
         }
 
         private function closeConnetion() {
             $this->databaseConnection->close();
         }
     }
-}

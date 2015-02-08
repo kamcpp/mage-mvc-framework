@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage\ORM {
+
     abstract class DatabaseConnection {
 
         public abstract function open($host, $port, $dbname, $username, $password);
@@ -11,4 +11,3 @@ namespace Mage\ORM {
 
         public abstract function executeWithResult($sqlQuery);
     }
-}

@@ -20,8 +20,8 @@
 				<td>{$item->getTitle()}</td>
 				<td>{$item->getText()}</td>
 				<td>{$item->getJalaliDate()}</td>
-				<td><a href="UpdateNews?id={$item->getId()}">UPDATE</a></td>
-				<td><a href="DeleteNews?id={$item->getId()}">DELETE</a></td>
+				<td><a href="UpdateNews-{$item->getId()}">UPDATE</a></td>
+				<td><a onclick="return confirm('Are you sure you want to delete?');" href="DeleteNews-{$item->getId()}">DELETE</a></td>
 			</tr>
 		{/foreach}
 	</table>

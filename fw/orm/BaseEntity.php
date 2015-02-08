@@ -1,14 +1,16 @@
 <?php
-namespace Mage\ORM {
-    abstract class BaseEntity {
-        protected $id;
 
-        public function getId() {
-            return $this->id;
-        }
+abstract class BaseEntity {
+    protected $id;
 
-        public function setId($id) {
-            $this->id = $id;
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        if(isset($_SESSION['id'])) {
+            $this->id = $_SESSION['id'];
         }
+        $this->id = $id;
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace Mage\ORM {
+
     class MySQLDatabaseConnection extends DatabaseConnection {
         private $connection;
 
         public function open($host, $port, $dbname, $username, $password) {
             $this->connection = mysqli_connect("$host:$port", $username, $password, $dbname);
             if (!$this->connection) {
-                // TODO Use appropriate Exception class.
+                // TO DO Use appropriate Exception class.
                 throw new Exception("Connection failed.");
             }
         }
@@ -34,4 +34,3 @@ namespace Mage\ORM {
             return $toReturn;
         }
     }
-}

@@ -5,11 +5,10 @@ class Context {
     private static $databaseConnection;
 
     public static function wire() {
-        self::$databaseConnection = new \Mage\ORM\MySQLDatabaseConnection();
+        self::$databaseConnection = new MySQLDatabaseConnection();
     }
 
     public static function createEntityManager($entityType) {
-        return new \Mage\ORM\EntityManager($entityType, self::$databaseConnection); // Constructor Injection
+        return new EntityManager($entityType, self::$databaseConnection); // Constructor Injection
     }
 }
- 

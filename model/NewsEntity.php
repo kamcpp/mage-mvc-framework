@@ -1,7 +1,5 @@
 <?php
 
-use Mage\ORM\BaseEntity;
-
 class NewsEntity extends BaseEntity {
     private $title;
     private $text;

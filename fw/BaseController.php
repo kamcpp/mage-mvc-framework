@@ -31,4 +31,3 @@ abstract class BaseController {
         setcookie($name, $value);
     }
 }
- 
