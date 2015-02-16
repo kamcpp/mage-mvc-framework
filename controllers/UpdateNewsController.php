@@ -9,6 +9,7 @@ class UpdateNewsController extends BaseController{
     public function post(Request $request) {
 
         $newsEntity = new NewsEntity();
+        $newsEntity->setId($_SESSION['id']);
         $newsEntity->setText($request->getParam('text'));
         $newsEntity->setTitle($request->getParam('title'));
         $newsEntity->setIssueDate(time());

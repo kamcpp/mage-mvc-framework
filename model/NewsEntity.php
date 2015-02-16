@@ -1,4 +1,5 @@
 <?php
+use ORM\BaseEntity;
 
 class NewsEntity extends BaseEntity {
     private $title;

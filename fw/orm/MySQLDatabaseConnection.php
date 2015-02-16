@@ -1,5 +1,5 @@
 <?php
-
+namespace ORM;
 
     class MySQLDatabaseConnection extends DatabaseConnection {
         private $connection;

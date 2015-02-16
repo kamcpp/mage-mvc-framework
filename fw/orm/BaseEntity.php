@@ -1,4 +1,5 @@
 <?php
+namespace ORM;
 
 abstract class BaseEntity {
     protected $id;

@@ -1,4 +1,5 @@
 <?php
+use ORM\BaseEntity;
 
 class Dispatcher extends BaseEntity{
 

@@ -1,4 +1,6 @@
 <?php
+use ORM\EntityManager;
+use ORM\MySQLDatabaseConnection;
 
 class Context {
 
